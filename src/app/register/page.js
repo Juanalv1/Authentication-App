@@ -9,7 +9,7 @@ import PrimaryBtn from '../components/PrimaryBtn';
 import SocialLoginList from '../components/SocialLoginList';
 import Credits from '../components/Credits';
 
-const page = () => {
+const register = () => {
   const [formData, setFormData] = useState(
   {
     email: '',
@@ -69,4 +69,4 @@ const page = () => {
   )
 }
 
-export default page
+export default register

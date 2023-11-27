@@ -5,7 +5,7 @@ import PersonalInfo from '../components/PersonalInfo'
 import EditMenu from '../components/EditMenu'
 import { useThemeContext } from '../context/theme'
 
-const page = () => {
+const profile = () => {
 const {isEditMenuOpen} = useThemeContext()
 
 
@@ -19,4 +19,4 @@ const {isEditMenuOpen} = useThemeContext()
   )
 }
 
-export default page
+export default profile

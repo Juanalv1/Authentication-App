@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Navbar from '../components/Navbar'
 import Credits from '../components/Credits'
 
-const page = () => {
+const login = () => {
   return (
     <div className='w-full min-h-screen flex justify-center items-center'>
       <div className='max-w-[470px] rounded-xl border border-gray-500 md:p-4'>
@@ -33,4 +33,4 @@ const page = () => {
   )
 }
 
-export default page
+export default login
