@@ -4,7 +4,6 @@ import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import db from "./../../../libs/db"
 import bcrypt from 'bcrypt'
-import { registerCustomQueryHandler } from "puppeteer";
 
 const authOptions = {
   callbacks: {
