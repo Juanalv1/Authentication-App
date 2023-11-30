@@ -1,5 +1,3 @@
-import {writeFile} from 'fs/promises'
-import path, { resolve } from 'path'
 import {v2 as cloudinary} from 'cloudinary';
           
 cloudinary.config({ 

@@ -1,7 +1,7 @@
 import { ThemeContextProvider } from './context/theme'
 import './globals.css'
 import { Inter } from 'next/font/google'
-
+import Providers from './Providers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -13,7 +13,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className='bg-light-bg font-Noto-sans'>
-        <ThemeContextProvider>{children}</ThemeContextProvider></body>
+        <Providers>
+          <ThemeContextProvider>
+            {children}
+          </ThemeContextProvider>
+        </Providers>
+      </body>
     </html>
   )
 }

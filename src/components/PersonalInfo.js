@@ -1,9 +1,8 @@
 import React from 'react'
-import { useThemeContext } from '../context/theme'
+import { useThemeContext } from '../app/context/theme'
 import Credits from './Credits'
 
-const PersonalInfo = () => {
-  const { isEditMenuOpen, setIsEditMenuOpen } = useThemeContext()
+const PersonalInfo = ({user, isEditMenuOpen, setIsEditMenuOpen }) => {
 
   const handleclick = () => {
     isEditMenuOpen ? setIsEditMenuOpen(false) : setIsEditMenuOpen(true)
@@ -31,27 +30,35 @@ const PersonalInfo = () => {
         <div className='flex justify-between p-2 border-b border-b-gray-400 w-full px-4 py-4'>
           <div className='text-xs text-gray-400 items-center flex'>PHOTO</div>
           <div className=' flex items-center justify-center pr-6  lg:w-2/3 lg:justify-start'>
-            <img src='./test-pic.png' className='w-16 h-16 rounded'/>
+            {user.img ? (<img src={user.img} className='w-16 h-16 rounded'/>) : (<img src='./test-pic.png' className='w-16 h-16 rounded'/>)}
           </div>
         </div>
         <div className='flex p-2 py-4 border-b border-b-gray-400 w-full justify-between px-4'>
           <div className='w-1/3 text-xs text-gray-400 items-center  flex'>NAME</div>
-          <div className='w-2/3 pr-6 text-end lg:justify-start lg:text-start'>Xanthe Neal</div>
+          <div className='w-2/3 pr-6 text-end lg:justify-start lg:text-start'>
+            {user.name ? (<span>{user.name}</span>) : (<span>Unknown</span>)}
+          </div>
         </div>
-        <div className='flex p-2 border-b border-b-gray-400 w-full justify-between px-4 py-4'>
-          <div className=' text-xs text-gray-400 items-center  flex'>BIO</div>
-          <div className=' pr-6 lg:w-2/3 lg:justify-start'>I am a software developer...</div>
+        <div className='flex p-2 py-4 border-b border-b-gray-400 w-full justify-between px-4 '>
+          <div className='w-1/3 text-xs text-gray-400 items-center  flex'>BIO</div>
+          <div className='w-2/3 pr-6 text-end lg:justify-start lg:text-start'>
+            {user.bio ? (<span>{user.bio}</span>) : (<span>Unknown</span>)}
+            </div>
+          </div>
+        <div className='flex p-2 py-4 border-b border-b-gray-400 w-full justify-between px-4 '>
+          <div className='w-1/3 text-xs text-gray-400 items-center  flex'>Phone</div>
+          <div className='w-2/3 pr-6 text-end lg:justify-start lg:text-start'>
+            {user.phone ? (<span>{user.phone}</span>) : (<span>Unknown</span>)}
+          </div>
         </div>
-        <div className='flex p-2 border-b border-b-gray-400 w-full px-4 py-4'>
-          <div className='w-1/3 text-xs text-gray-400 items-center  flex'>PHONE</div>
-          <div className='w-2/3 pr-6 text-end lg:w-2/3 lg:justify-start lg:text-start'>+57 3052037466</div>
+        <div className='flex p-2 py-4 border-b border-b-gray-400 w-full justify-between px-4 '>
+          <div className='w-1/3 text-xs text-gray-400 items-center  flex'>Email</div>
+          <div className='w-2/3 pr-6 text-end lg:justify-start lg:text-start'>
+            {user.email ? (<span>{user.email}</span>) : (<span>Unknown</span>)}
+          </div>
         </div>
-        <div className='flex p-2 border-b border-b-gray-400 w-full px-4 py-4'>
-          <div className='w-1/3 text-xs text-gray-400 items-center  flex'>EMAIL</div>
-          <div className='w-2/3 pr-6 text-end lg:w-2/3 lg:justify-start lg:text-start'>elquesififa@gmail.com</div>
-        </div>
-        <div className='flex p-2 border-b border-b-gray-400 w-full px-4 py-4'>
-          <div className='w-1/3 text-xs text-gray-400 items-center  flex'>PASSWORD</div>
+        <div className='flex p-2 py-4 border-b border-b-gray-400 w-full justify-between px-4 '>
+          <div className='w-1/3 text-xs text-gray-400 items-center flex '>PASSWORD</div>
           <div className='w-2/3 pr-6 text-end lg:w-2/3 lg:justify-start lg:text-start'>************</div>
         </div>
     </div>

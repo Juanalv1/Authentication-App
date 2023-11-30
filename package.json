@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/pg-adapter": "^0.2.7",
+    "@auth/prisma-adapter": "^1.0.9",
     "@edgestore/react": "^0.1.4",
     "@edgestore/server": "^0.1.4",
+    "@prisma/client": "^5.6.0",
     "@vercel/postgres": "^0.5.1",
     "autoprefixer": "10.4.16",
+    "bcrypt": "^5.1.1",
     "cloudinary": "^1.41.0",
     "deep-email-validator": "^0.1.21",
     "eslint": "8.54.0",
@@ -23,8 +27,12 @@
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.48.2",
     "react-icons": "^4.12.0",
     "tailwindcss": "3.3.5",
     "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "prisma": "^5.6.0"
   }
 }

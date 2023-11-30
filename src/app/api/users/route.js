@@ -1,26 +1,89 @@
-import { NextResponse } from "next/server"
-import { isEmailValid } from "../middleware"
-import dbPool from "../db"
+const { NextResponse } = require("next/server")
+import {v2 as cloudinary} from 'cloudinary';
+import db from "@/app/libs/db"
+import bcrypt from 'bcrypt'
+import { string } from 'zod';
 
-export const POST = async (req) => {
+cloudinary.config({ 
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+});
+export async function POST (req) {
   try {
-    const { email, password } = await req.json();
-    const client = await dbPool.connect();
-    
-    // Realizar la inserción en la base de datos
-    const result = await client.query('INSERT INTO public.users(email, password) VALUES ($1, $2);', [email, password]);
+    const data = await req.json()
 
-    // Verificar si la inserción fue exitosa
-    if (result.rowCount === 1) {
-      return NextResponse.json({ message: "exitoso" }, { status: 200 });
-    } else {
-      return NextResponse.error({ status: 500, body: "Error en la inserción" });
+    const userFound = await db.users.findUnique({
+      where: {
+        email: data.email,
+      },
+    })
+    if(userFound){
+      return NextResponse.json({message: "user already exist"}, {status: 400})
     }
+      const hashedPassword = await bcrypt.hash(data.password, 10)
+      const newUser = await db.users.create({data:{
+        email: data.email,
+        password: hashedPassword,
+        img: data.image
+      }})
+    const {password: _, ...user} = newUser
+    return NextResponse.json(user)
   } catch (error) {
-    console.error("Error al realizar la inserción:", error);
-    return NextResponse.error({ status: 500, body: "Error en la solicitud" });
-  } finally {
-    // Asegurarse de liberar la conexión después de usarla
-    client.release();
+    NextResponse({message: error.message}, {status: 500})
   }
+}
+
+export async function PATCH (req) {
+  const data = await req.formData()
+  const name = data.get('name')
+  const email = data.get('email')
+  const bio = data.get('bio')
+  const image = data.get('image')
+  const phone = data.get('phone')
+  const password = data.get('password')
+  const session = JSON.parse(data.get('session'))
+  let hashedPassword
+  if(password){
+    hashedPassword = await bcrypt.hash(password, 10)
+  }
+ 
+
+  const img = async () => {
+    if(typeof image === 'object' && image !== null){
+      const bytes = await image.arrayBuffer()
+      const buffer = Buffer.from(bytes)
+      const response = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload_stream({}, (err, result) => {
+        if (err) {
+          reject(err)
+        }
+        resolve(result)
+        
+      }).end(buffer)
+      })
+      return response.secure_url
+     }
+     else if(typeof image === 'string') {
+      return image
+     }
+  }
+  const result = await img()
+  const userData = {}
+  if(name) userData.name = name
+  if(email) userData.email = email
+  if(bio) userData.bio = bio
+  if(image) userData.img = result
+  if(phone) userData.phone = phone
+  if(password) userData.password = hashedPassword
+  console.log(userData)
+   const updatedUser = await db.users.update({
+      where: {
+        email: session.user.email
+      },
+      data: userData
+   })
+   delete updatedUser.password
+
+  return NextResponse.json({message: 'user updated', updatedUser}, {status: 200})
 }
