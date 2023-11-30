@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
-import SocialLoginLogo from '../../components/SocialLoginLogo';
+import SocialLoginLogo from '../../components/SocialGithubLogo';
 import Link from 'next/link';
 import EmailInput from '../../components/EmailInput';
 import PasswordInput from '../../components/PasswordInput';

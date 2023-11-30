@@ -1,11 +1,12 @@
 import React from 'react'
-import SocialLoginLogo from './SocialLoginLogo'
+import SocialGithubLogo from './SocialGithubLogo'
+import SocialGoogleLogo from './SocialGoogleLogo'
 
 const SocialLoginList = () => {
   return (
     <div className='flex gap-x-4'>
-      <SocialLoginLogo name={'google'}/>
-      <SocialLoginLogo name={'github'}/>
+      <SocialGoogleLogo name={'google'}/>
+      <SocialGithubLogo name={'github'}/>
   </div>
   )
 }
